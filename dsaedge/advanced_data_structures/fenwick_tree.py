@@ -34,10 +34,10 @@ class FenwickTree:
             index -= index & (-index)  # Move to the parent index
         return s
 
-    def range_query(self, l, r):
+    def range_query(self, start_index: int, r: int) -> int:
         """
         Queries the sum of elements in a given range [l, r] (inclusive, 0-based).
         """
-        if l > r:
+        if start_index > r:
             return 0
-        return self.query(r) - self.query(l - 1)
+        return self.query(r) - self.query(start_index - 1)

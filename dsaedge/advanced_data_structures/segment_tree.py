@@ -37,23 +37,23 @@ class SegmentTree:
         # The value of the internal node is the sum of its children
         self.tree[node] = self.tree[left_child] + self.tree[right_child]
 
-    def query(self, l, r):
+    def query(self, query_start: int, r: int) -> int:
         """
         Public method to query the sum of the range [l, r].
         """
-        return self._query(0, 0, self.n - 1, l, r)
+        return self._query(0, 0, self.n - 1, query_start, r)
 
-    def _query(self, node, start, end, l, r):
+    def _query(self, node, start, end, query_start: int, r: int) -> int:
         """
         Recursive helper for range sum queries.
         - l, r: The query range.
         """
         # Case 1: The segment is completely outside the query range
-        if r < start or end < l:
+        if r < start or end < query_start:
             return 0
 
         # Case 2: The segment is completely inside the query range
-        if l <= start and end <= r:
+        if query_start <= start and end <= r:
             return self.tree[node]
 
         # Case 3: The segment partially overlaps with the query range
@@ -61,10 +61,10 @@ class SegmentTree:
         left_child = 2 * node + 1
         right_child = 2 * node + 2
         
-p1 = self._query(left_child, start, mid, l, r)
-p2 = self._query(right_child, mid + 1, end, l, r)
-        
-return p1 + p2
+        p1 = self._query(left_child, start, mid, query_start, r)
+        p2 = self._query(right_child, mid + 1, end, query_start, r)
+                
+        return p1 + p2
 
     def update(self, idx, val):
         """
