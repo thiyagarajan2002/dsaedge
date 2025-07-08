@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dsaedge',
-    version='0.2.0',
+    version='0.4.0',
     author='Thiyagarajan', # Replace with your name
     author_email='trj08012002@gmail.com', # Replace with your email
     description='A comprehensive Python package for various data structures and algorithms implementations.',
@@ -14,7 +14,7 @@ setup(
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
-        'Development Status :: 4 - Beta',
+         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Education',

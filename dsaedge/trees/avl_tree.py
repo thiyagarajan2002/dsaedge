@@ -1,5 +1,3 @@
-
-
 class Node:
     """
     A node in an AVL tree.
