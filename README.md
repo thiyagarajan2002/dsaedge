@@ -4,7 +4,7 @@ A comprehensive collection of various data structures and algorithms implemented
 
 ## Installation
 
-YouYou can install this package using pip:
+You can install this package using pip:
 
 ```bash
 pip install dsaedge
@@ -28,30 +28,39 @@ print(ll)
 ### Sorting Algorithms
 
 ```python
-from dsaedge.sorting.sorting_algorithms import bubble_sort
+from dsaedge.sorting import Sorting
 
 arr = [64, 34, 25, 12, 22, 11, 90]
-sorted_arr = bubble_sort(arr[:])
+sorted_arr = Sorting.bubble_sort(arr[:])
 print(sorted_arr)
+```
+
+### Searching Algorithms
+
+```python
+from dsaedge.searching import Searching
+
+arr = [1, 5, 2, 8, 3]
+index = Searching.linear_search(arr, 8)
+print(f"Element found at index: {index}")
 ```
 
 ### Graph Algorithms
 
 ```python
-from dsaedge.graphs.graph_representation import Graph
-from dsaedge.graphs.bellman_ford import bellman_ford
+from dsaedge.graphs import Graph
 
 graph = Graph()
 graph.add_edge('A', 'B', weight=4)
 graph.add_edge('A', 'C', weight=2)
 
-# Example of using Bellman-Ford (requires a different Graph class structure)
-# For Bellman-Ford, you'd typically define the graph as a list of edges:
-# from data_structures_algorithms.graphs.bellman_ford import Graph as BellmanFordGraph, bellman_ford
-# g_bf = BellmanFordGraph(5)
-# g_bf.add_edge(0, 1, -1)
-# distances, predecessors, has_negative_cycle = bellman_ford(g_bf, 0)
-# print(distances)
+# Example BFS
+bfs_result = graph.bfs('A')
+print(f"BFS Traversal: {bfs_result}")
+
+# Example Dijkstra
+distances, predecessors = graph.dijkstra('A')
+print(f"Dijkstra distances from A: {distances}")
 ```
 
 ## Implemented Data Structures and Algorithms
@@ -71,7 +80,7 @@ graph.add_edge('A', 'C', weight=2)
 *   **Hash Tables**
     *   Hash Table (with chaining)
 *   **Graphs**
-    *   Adjacency List Representation
+    *   Adjacency List Representation (Graph class with all graph algorithms as methods)
     *   Fenwick Tree (Binary Indexed Tree)
     *   Segment Tree
     *   Trie (Prefix Tree)
@@ -79,7 +88,7 @@ graph.add_edge('A', 'C', weight=2)
 
 ### Algorithms
 
-*   **Graph Algorithms**
+*   **Graph Algorithms (as methods of Graph class)**
     *   Breadth-First Search (BFS)
     *   Depth-First Search (DFS)
     *   Dijkstra's Algorithm
@@ -88,20 +97,43 @@ graph.add_edge('A', 'C', weight=2)
     *   Kruskal's Algorithm
     *   Floyd-Warshall Algorithm
     *   Topological Sort
-*   **Sorting Algorithms**
+    *   A* Search
+    *   Cycle Detection (Undirected and Directed)
+    *   Strongly Connected Components (Tarjan's Algorithm)
+*   **Sorting Algorithms (as static methods of Sorting class)**
     *   Bubble Sort
     *   Selection Sort
     *   Insertion Sort
     *   Merge Sort
     *   Quick Sort
     *   Heap Sort
-*   **Searching Algorithms**
+    *   Counting Sort
+    *   Radix Sort
+*   **Searching Algorithms (as static methods of Searching class)**
     *   Linear Search
     *   Binary Search
+    *   Jump Search
+    *   Exponential Search
 *   **Algorithmic Paradigms**
     *   Dynamic Programming (Knapsack, Longest Common Subsequence)
     *   Backtracking (N-Queens, Sudoku Solver)
     *   String Searching (KMP Algorithm)
+
+## Running Tests
+
+To run the unit tests, first ensure you have `pytest` installed. It is recommended to use a virtual environment:
+
+```bash
+# Create and activate a conda environment
+conda create -n dsaedge-test-env python=3.9 pytest -y
+conda activate dsaedge-test-env
+
+# Install the package in editable mode
+pip install -e .
+
+# Run tests
+pytest
+```
 
 ## Contributing
 
