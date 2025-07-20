@@ -1,4 +1,4 @@
-def insertion_sort(arr: list) -> list:
+def Insertion_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Insertion Sort algorithm.
 

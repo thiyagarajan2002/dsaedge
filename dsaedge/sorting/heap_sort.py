@@ -18,7 +18,7 @@ def heapify(arr: list, n: int, i: int):
         # Heapify the root.
         heapify(arr, n, largest)
 
-def heap_sort(arr: list) -> list:
+def Heap_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Heap Sort algorithm.
 

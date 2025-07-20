@@ -1,15 +1,4 @@
-def linear_search(arr, target):
-    """
-    Performs a linear search to find the index of a target in an array.
-    Works on both sorted and unsorted lists.
-    Returns the index of the target if found, otherwise -1.
-    """
-    for i in range(len(arr)):
-        if arr[i] == target:
-            return i
-    return -1
-
-def binary_search(arr, target):
+def Binary_Search(arr, target):
     """
     Performs an iterative binary search to find the index of a target.
     Requires the array to be sorted.
@@ -33,7 +22,7 @@ def binary_search(arr, target):
     # If we reach here, then the element was not present
     return -1
 
-def binary_search_recursive(arr, low, high, target):
+def Binary_Search_Recursive(arr, low, high, target):
     """
     Performs a recursive binary search.
     Helper function to demonstrate the recursive approach.
@@ -43,9 +32,9 @@ def binary_search_recursive(arr, low, high, target):
         if arr[mid] == target:
             return mid
         elif arr[mid] > target:
-            return binary_search_recursive(arr, low, mid - 1, target)
+            return Binary_Search_Recursive(arr, low, mid - 1, target)
         else:
-            return binary_search_recursive(arr, mid + 1, high, target)
+            return Binary_Search_Recursive(arr, mid + 1, high, target)
     else:
         # Element is not present in the array
         return -1

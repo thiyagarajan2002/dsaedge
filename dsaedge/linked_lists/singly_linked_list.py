@@ -7,7 +7,7 @@ class Node:
         self.data = data
         self.next = None
 
-class LinkedList:
+class SinglyLinkedList:
     """
     A singly linked list implementation.
     """

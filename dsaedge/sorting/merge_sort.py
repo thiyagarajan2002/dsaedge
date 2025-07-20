@@ -1,4 +1,4 @@
-def merge_sort(arr: list) -> list:
+def Merge_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Merge Sort algorithm.
 

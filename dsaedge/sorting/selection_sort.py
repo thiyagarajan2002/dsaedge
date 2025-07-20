@@ -1,4 +1,4 @@
-def selection_sort(arr: list) -> list:
+def Selection_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Selection Sort algorithm.
 

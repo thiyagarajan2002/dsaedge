@@ -1,6 +1,15 @@
-from .bubble_sort import bubble_sort
-from .selection_sort import selection_sort
-from .insertion_sort import insertion_sort
-from .merge_sort import merge_sort
-from .quick_sort import quick_sort
-from .heap_sort import heap_sort
+from .bubble_sort import Bubble_Sort
+from .selection_sort import Selection_Sort
+from .insertion_sort import Insertion_Sort
+from .merge_sort import Merge_Sort
+from .quick_sort import Quick_Sort
+from .heap_sort import Heap_Sort
+
+__all__ = [
+    'Bubble_Sort',
+    'Selection_Sort',
+    'Insertion_Sort',
+    'Merge_Sort',
+    'Quick_Sort',
+    'Heap_Sort'
+]

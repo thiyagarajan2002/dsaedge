@@ -1,4 +1,4 @@
-def quick_sort(arr: list) -> list:
+def Quick_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Quick Sort algorithm.
 

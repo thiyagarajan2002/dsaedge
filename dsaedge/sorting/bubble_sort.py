@@ -1,4 +1,4 @@
-def bubble_sort(arr: list) -> list:
+def Bubble_Sort(arr: list) -> list:
     """
     Sorts a list of elements using the Bubble Sort algorithm.
 
