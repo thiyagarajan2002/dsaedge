@@ -1,12 +1,9 @@
-
 class Node:
-    """
-    A node in a doubly linked list.
-    """
     def __init__(self, data):
         self.data = data
-        self.next = None
         self.prev = None
+        self.next = None
+
 
 class DoublyLinkedList:
     """
@@ -17,113 +14,226 @@ class DoublyLinkedList:
         self.tail = None
 
     def is_empty(self):
-        """Check if the linked list is empty."""
         return self.head is None
 
     def append(self, data):
-        """Add a node with the given data to the end of the list."""
         new_node = Node(data)
         if self.is_empty():
-            self.head = new_node
-            self.tail = new_node
+            self.head = self.tail = new_node
         else:
             self.tail.next = new_node
             new_node.prev = self.tail
             self.tail = new_node
 
     def prepend(self, data):
-        """Add a node with the given data to the beginning of the list."""
         new_node = Node(data)
         if self.is_empty():
-            self.head = new_node
-            self.tail = new_node
+            self.head = self.tail = new_node
         else:
             new_node.next = self.head
             self.head.prev = new_node
             self.head = new_node
 
     def insert_at_position(self, data, position):
-        """Insert a node with the given data at a specific position (0-indexed)."""
         if position < 0:
             raise IndexError("Position cannot be negative.")
         if position == 0:
             self.prepend(data)
             return
 
-        current_pos = 0
-        current_node = self.head
-        while current_node and current_pos < position:
-            current_node = current_node.next
-            current_pos += 1
+        current = self.head
+        index = 0
+        while current and index < position:
+            current = current.next
+            index += 1
 
-        if current_node is None and current_pos < position:
-             raise IndexError("Position is out of bounds.")
-        
-        if current_node is None: # Insert at the end
+        if current is None and index < position:
+            raise IndexError("Position is out of bounds.")
+
+        if current is None:
             self.append(data)
         else:
             new_node = Node(data)
-            new_node.prev = current_node.prev
-            new_node.next = current_node
-            current_node.prev.next = new_node
-            current_node.prev = new_node
+            new_node.prev = current.prev
+            new_node.next = current
+            if current.prev:
+                current.prev.next = new_node
+            current.prev = new_node
+            if new_node.prev is None:
+                self.head = new_node
 
     def delete(self, data):
-        """Delete the first node containing the given data."""
-        current_node = self.head
-        while current_node:
-            if current_node.data == data:
-                if current_node.prev:
-                    current_node.prev.next = current_node.next
-                else: # It's the head node
-                    self.head = current_node.next
-                
-                if current_node.next:
-                    current_node.next.prev = current_node.prev
-                else: # It's the tail node
-                    self.tail = current_node.prev
-                return True # Indicate that a node was deleted
-            current_node = current_node.next
-        return False # Indicate that the data was not found
+        current = self.head
+        while current:
+            if current.data == data:
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.head = current.next
+
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.tail = current.prev
+
+                return True
+            current = current.next
+        return False
+
+    def delete_at_position(self, position):
+        if position < 0:
+            raise IndexError("Position cannot be negative.")
+        current = self.head
+        index = 0
+        while current and index < position:
+            current = current.next
+            index += 1
+        if current is None:
+            raise IndexError("Position is out of bounds.")
+
+        if current.prev:
+            current.prev.next = current.next
+        else:
+            self.head = current.next
+        if current.next:
+            current.next.prev = current.prev
+        else:
+            self.tail = current.prev
+        return True
+
+    def delete_all(self, data):
+        current = self.head
+        deleted = False
+        while current:
+            next_node = current.next
+            if current.data == data:
+                if current.prev:
+                    current.prev.next = current.next
+                else:
+                    self.head = current.next
+
+                if current.next:
+                    current.next.prev = current.prev
+                else:
+                    self.tail = current.prev
+                deleted = True
+            current = next_node
+        return deleted
 
     def search(self, data):
-        """Search for a node with the given data. Returns the node if found, else None."""
-        current_node = self.head
-        while current_node:
-            if current_node.data == data:
-                return current_node
-            current_node = current_node.next
+        current = self.head
+        while current:
+            if current.data == data:
+                return current
+            current = current.next
         return None
 
     def __len__(self):
-        """Get the size (number of nodes) of the linked list."""
         count = 0
-        current_node = self.head
-        while current_node:
+        current = self.head
+        while current:
             count += 1
-            current_node = current_node.next
+            current = current.next
         return count
 
     def __str__(self):
-        """Return a string representation of the linked list from head to tail."""
         if self.is_empty():
             return "Empty List"
-        nodes = []
-        current_node = self.head
-        while current_node:
-            nodes.append(str(current_node.data))
-            current_node = current_node.next
-        return " <-> ".join(nodes)
+        result = []
+        current = self.head
+        while current:
+            result.append(str(current.data))
+            current = current.next
+        return " <-> ".join(result)
 
-    def print_reverse(self):
-        """Return a string representation of the linked list from tail to head."""
+    def display(self):
         if self.is_empty():
-            return "Empty List"
-        nodes = []
-        current_node = self.tail
-        while current_node:
-            nodes.append(str(current_node.data))
-            current_node = current_node.prev
-        return " <-> ".join(nodes)
+            print("Empty List")
+        else:
+            print("List:", self)
+            print("Head:", self.head.data)
+            print("Tail:", self.tail.data)
+            print("Size:", len(self))
+            print("Is Empty:", self.is_empty())
 
+    def clear(self):
+        self.head = None
+        self.tail = None
+        print("List cleared.")
 
+    def to_list(self):
+        result = []
+        current = self.head
+        while current:
+            result.append(current.data)
+            current = current.next
+        return result
+
+    def from_list(self, data_list):
+        self.clear()
+        for data in data_list:
+            self.append(data)
+        return "List created from Python list."
+
+    def sort(self):
+        if self.is_empty() or self.head == self.tail:
+            return "List is empty or has only one element, no sorting needed."
+
+        swapped = True
+        while swapped:
+            swapped = False
+            current = self.head
+            while current and current.next:
+                if current.data > current.next.data:
+                    current.data, current.next.data = current.next.data, current.data
+                    swapped = True
+                current = current.next
+        return "List sorted."
+
+    def reverse(self):
+        if self.is_empty():
+            return "List is empty, nothing to reverse."
+
+        current = self.head
+        self.tail = current
+        prev = None
+        while current:
+            next_node = current.next
+            current.next = prev
+            current.prev = next_node
+            prev = current
+            current = next_node
+        self.head = prev
+        return "List reversed."
+
+    def get_middle(self):
+        if self.is_empty():
+            return None
+        slow = self.head
+        fast = self.head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow.data if slow else None
+
+"""
+dll = DoublyLinkedList()
+dll.from_list([10, 5, 20, 15])
+print("Original:", dll)
+
+dll.sort()
+print("Sorted:", dll)
+
+dll.reverse()
+print("Reversed:", dll)
+
+print("Middle Element:", dll.get_middle())
+
+dll.delete_all(5)
+print("After deleting 5s:", dll)
+
+dll.insert_at_position(99, 1)
+print("After inserting 99 at position 1:", dll)
+
+dll.display()
+"""
