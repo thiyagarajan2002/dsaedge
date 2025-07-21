@@ -127,54 +127,24 @@ Sudoku Solver - No solution exists.")
 ### Graphs
 
 ```python
-# Bellman-Ford Algorithm
-from dsaedge.graphs.bellman_ford import Graph as BellmanFordGraph, bellman_ford
-
-g_bf = BellmanFordGraph(5)
-g_bf.add_edge(0, 1, -1)
-g_bf.add_edge(0, 2, 4)
-g_bf.add_edge(1, 2, 3)
-g_bf.add_edge(1, 3, 2)
-g_bf.add_edge(1, 4, 2)
-g_bf.add_edge(3, 2, 5)
-g_bf.add_edge(3, 1, 1)
-g_bf.add_edge(4, 3, -3)
-
-distances_bf, predecessors_bf, has_negative_cycle = bellman_ford(g_bf, 0)
-print(f"Bellman-Ford - Distances from source 0: {distances_bf}")
-print(f"Bellman-Ford - Has negative cycle: {has_negative_cycle}")
-
-# Floyd-Warshall Algorithm
-from dsaedge.graphs.floyd_warshall import floyd_warshall
-
-INF = float('inf')
-graph_fw = [
-    [0, 5, INF, 10],
-    [INF, 0, 3, INF],
-    [INF, INF, 0, 1],
-    [INF, INF, INF, 0]
-]
-distances_fw = floyd_warshall(graph_fw)
-print(f"Floyd-Warshall - All-pairs shortest paths: {distances_fw}")
-
 # Graph Representation (Adjacency List) and Algorithms (BFS, DFS, Dijkstra, Prim)
-from dsaedge.graphs.graph_representation import Graph as AdjListGraph
+from dsaedge.graphs.graph_representation import Graph
 
-g_adj = AdjListGraph()
-g_adj.add_edge('A', 'B', 1)
-g_adj.add_edge('A', 'C', 4)
-g_adj.add_edge('B', 'C', 2)
-g_adj.add_edge('B', 'D', 5)
-g_adj.add_edge('C', 'D', 1)
+g = Graph()
+g.add_edge('A', 'B', 1)
+g.add_edge('A', 'C', 4)
+g.add_edge('B', 'C', 2)
+g.add_edge('B', 'D', 5)
+g.add_edge('C', 'D', 1)
 
-print(f"Graph Representation - BFS from A: {g_adj.bfs('A')}")
-print(f"Graph Representation - DFS from A: {g_adj.dfs('A')}")
+print(f"Graph - BFS from A: {g.bfs('A')}")
+print(f"Graph - DFS from A: {g.dfs('A')}")
 
-distances_dijkstra, _ = g_adj.dijkstra('A')
-print(f"Graph Representation - Dijkstra distances from A: {distances_dijkstra}")
+distances_dijkstra, _ = g.dijkstra('A')
+print(f"Graph - Dijkstra distances from A: {distances_dijkstra}")
 
-mst_cost, mst_edges = g_adj.prims_algorithm('A')
-print(f"Graph Representation - Prim's MST cost: {mst_cost}, Edges: {mst_edges}")
+mst_cost, mst_edges = g.prims_algorithm('A')
+print(f"Graph - Prim's MST cost: {mst_cost}, Edges: {mst_edges}")
 
 # Kruskal's Algorithm
 from dsaedge.graphs.kruskal_algorithm import kruskal_algorithm
@@ -248,17 +218,17 @@ print(f"Min-Heap - Size: {min_heap.size()}")
 ### Linked Lists
 
 ```python
-# Circular Singly Linked List
-from dsaedge.linked_lists.circular_singly_linked_list import CircularSinglyLinkedList
+# Singly Linked List
+from dsaedge.linked_lists.singly_linked_list import SinglyLinkedList
 
-csll = CircularSinglyLinkedList()
-csll.append(1)
-csll.append(2)
-csll.prepend(0)
-print(f"Circular Singly Linked List: {csll}")
-csll.delete(1)
-print(f"Circular Singly Linked List after deleting 1: {csll}")
-print(f"Circular Singly Linked List - Search 0: {csll.search(0).data if csll.search(0) else None}")
+sll = SinglyLinkedList()
+sll.append(10)
+sll.prepend(5)
+sll.insert_at_position(7, 1)
+print(f"Singly Linked List: {sll}")
+sll.delete(7)
+print(f"Singly Linked List after deleting 7: {sll}")
+print(f"Singly Linked List - Length: {len(sll)}")
 
 # Doubly Linked List
 from dsaedge.linked_lists.doubly_linked_list import DoublyLinkedList
@@ -270,75 +240,101 @@ dll.insert_at_position(2, 2)
 print(f"Doubly Linked List: {dll}")
 dll.delete(1)
 print(f"Doubly Linked List after deleting 1: {dll}")
-print(f"Doubly Linked List (reverse): {dll.print_reverse()}")
 
-# Singly Linked List
-from dsaedge.linked_lists.singly_linked_list import LinkedList
+# Circular Singly Linked List
+from dsaedge.linked_lists.circular_singly_linked_list import CircularSinglyLinkedList
 
-sll = LinkedList()
-sll.append(10)
-sll.prepend(5)
-sll.insert_at_position(7, 1)
-print(f"Singly Linked List: {sll}")
-sll.delete(7)
-print(f"Singly Linked List after deleting 7: {sll}")
-print(f"Singly Linked List - Length: {len(sll)}")
+csll = CircularSinglyLinkedList()
+csll.append(1)
+csll.append(2)
+csll.prepend(0)
+print(f"Circular Singly Linked List: {csll}")
+csll.delete(1)
+print(f"Circular Singly Linked List after deleting 1: {csll}")
+
+# Circular Doubly Linked List
+from dsaedge.linked_lists.circular_doubly_linked_list import CircularDoublyLinkedList
+
+cdll = CircularDoublyLinkedList()
+cdll.append(10)
+cdll.append(20)
+cdll.prepend(5)
+print(f"Circular Doubly Linked List: {cdll.display()}")
+```
+
+### Queue
+
+```python
+# Queue (implemented with Linked List)
+from dsaedge.queue import Queue
+
+q = Queue()
+q.enqueue(10)
+q.enqueue(20)
+print(f"Queue: {q.display()}")
+print(f"Peek: {q.peek()}")
+q.dequeue()
+print(f"Queue after dequeue: {q.display()}")
+```
+
+### Stack
+
+```python
+# Stack (implemented with Linked List)
+from dsaedge.stack import Stack
+
+s = Stack()
+s.push(100)
+s.push(200)
+print(f"Stack: {s.display()}")
+print(f"Peek: {s.peek()}")
+s.pop()
+print(f"Stack after pop: {s.display()}")
 ```
 
 ### Searching
 
 ```python
 # Searching Algorithms
-from dsaedge.searching.searching_algorithms import linear_search, binary_search, binary_search_recursive
+from dsaedge.searching.linear_search import Linear_Search
+from dsaedge.searching.binary_search import Binary_Search, Binary_Search_Recursive
 
 arr_search = [1, 5, 2, 8, 3, 9, 4]
 target_linear = 8
-print(f"Linear Search - Index of {target_linear}: {linear_search(arr_search, target_linear)}")
+print(f"Linear Search - Index of {target_linear}: {Linear_Search(arr_search, target_linear)}")
 
 arr_sorted = [1, 2, 3, 4, 5, 8, 9]
 target_binary = 4
-print(f"Binary Search (Iterative) - Index of {target_binary}: {binary_search(arr_sorted, target_binary)}")
-print(f"Binary Search (Recursive) - Index of {target_binary}: {binary_search_recursive(arr_sorted, 0, len(arr_sorted) - 1, target_binary)}")
+print(f"Binary Search (Iterative) - Index of {target_binary}: {Binary_Search(arr_sorted, target_binary)}")
+print(f"Binary Search (Recursive) - Index of {target_binary}: {Binary_Search_Recursive(arr_sorted, 0, len(arr_sorted) - 1, target_binary)}")
 ```
 
 ### Sorting
 
 ```python
 # Sorting Algorithms
-from dsaedge.sorting.bubble_sort import bubble_sort
-from dsaedge.sorting.heap_sort import heap_sort
-from dsaedge.sorting.insertion_sort import insertion_sort
-from dsaedge.sorting.merge_sort import merge_sort
-from dsaedge.sorting.quick_sort import quick_sort
-from dsaedge.sorting.selection_sort import selection_sort
+from dsaedge.sorting.bubble_sort import Bubble_Sort
+from dsaedge.sorting.heap_sort import Heap_Sort
+from dsaedge.sorting.insertion_sort import Insertion_Sort
+from dsaedge.sorting.merge_sort import Merge_Sort
+from dsaedge.sorting.quick_sort import Quick_Sort
+from dsaedge.sorting.selection_sort import Selection_Sort
 
 arr_sort = [64, 34, 25, 12, 22, 11, 90]
 
-print(f"Bubble Sort: {bubble_sort(arr_sort[:])}")
-print(f"Heap Sort: {heap_sort(arr_sort[:])}")
-print(f"Insertion Sort: {insertion_sort(arr_sort[:])}")
-print(f"Merge Sort: {merge_sort(arr_sort[:])}")
-print(f"Quick Sort: {quick_sort(arr_sort[:])}")
-print(f"Selection Sort: {selection_sort(arr_sort[:])}")
+# These functions sort the list in-place and return it.
+print(f"Original Array: {arr_sort}")
+print(f"Bubble Sort: {Bubble_Sort(arr_sort[:])}")
+print(f"Heap Sort: {Heap_Sort(arr_sort[:])}")
+print(f"Insertion Sort: {Insertion_Sort(arr_sort[:])}")
+print(f"Merge Sort: {Merge_Sort(arr_sort[:])}")
+print(f"Quick Sort: {Quick_Sort(arr_sort[:])}")
+print(f"Selection Sort: {Selection_Sort(arr_sort[:])}")
 ```
 
 ### Trees
 
 ```python
-# AVL Tree
-from dsaedge.trees.avl_tree import AVLTree
-
-avl = AVLTree()
-avl.insert(10)
-avl.insert(20)
-avl.insert(30)
-avl.insert(40)
-avl.insert(50)
-avl.insert(25)
-print(f"AVL Tree - In-order traversal: {avl.in_order_traversal()}")
-avl.delete(30)
-print(f"AVL Tree - In-order traversal after deleting 30: {avl.in_order_traversal()}")
-
 # Binary Search Tree (BST)
 from dsaedge.trees.binary_search_tree import BinarySearchTree
 
@@ -354,19 +350,19 @@ print(f"BST - Search 40: {bst.search(40).data if bst.search(40) else None}")
 bst.delete(30)
 print(f"BST - In-order traversal after deleting 30: {bst.in_order_traversal()}")
 
-# Binary Tree
-from dsaedge.trees.binary_tree import BinaryTree, Node
+# AVL Tree
+from dsaedge.trees.avl_tree import AVLTree
 
-bt = BinaryTree(1)
-bt.root.left = Node(2)
-bt.root.right = Node(3)
-bt.root.left.left = Node(4)
-bt.root.left.right = Node(5)
-
-print(f"Binary Tree - Pre-order traversal: {bt.pre_order_traversal()}")
-print(f"Binary Tree - In-order traversal: {bt.in_order_traversal()}")
-print(f"Binary Tree - Post-order traversal: {bt.post_order_traversal()}")
-print(f"Binary Tree - Level-order traversal: {bt.level_order_traversal()}")
+avl = AVLTree()
+avl.insert(10)
+avl.insert(20)
+avl.insert(30)
+avl.insert(40)
+avl.insert(50)
+avl.insert(25)
+print(f"AVL Tree - In-order traversal: {avl.in_order_traversal()}")
+avl.delete(30)
+print(f"AVL Tree - In-order traversal after deleting 30: {avl.in_order_traversal()}")
 ```
 
 ## Implemented Data Structures and Algorithms
@@ -376,46 +372,71 @@ The `dsaedge` package is organized into several modules, each focusing on a spec
 ### Data Structures
 
 *   **`advanced_data_structures`**
-    *   `disjoint_set_union.py`: Disjoint Set Union (DSU) with `make_set`, `find`, and `union` operations.
-    *   `fenwick_tree.py`: Fenwick Tree (Binary Indexed Tree) with `update`, `query`, and `range_query` operations.
-    *   `segment_tree.py`: Segment Tree with `build`, `query`, and `update` operations.
-    *   `trie.py`: Trie (Prefix Tree) with `insert`, `search`, and `starts_with` operations.
+    *   `disjoint_set_union.py`: Disjoint Set Union (DSU) with path compression and union by size.
+    *   `fenwick_tree.py`: Fenwick Tree (Binary Indexed Tree) for prefix sums.
+    *   `segment_tree.py`: Segment Tree for range queries and point updates.
+    *   `trie.py`: Trie (Prefix Tree) for string searching.
 *   **`hash_tables`**
-    *   `hash_table.py`: Hash Table with chaining, supporting `set`, `get`, and `delete` operations.
+    *   `hash_table.py`: Hash Table with chaining for collision resolution.
 *   **`heaps`**
-    *   `min_heap.py`: Min-Heap with `insert`, `extract_min`, `get_min`, `is_empty`, and `size` operations.
+    *   `min_heap.py`: Min-Heap implementation.
 *   **`linked_lists`**
-    *   `circular_singly_linked_list.py`: Circular Singly Linked List with `append`, `prepend`, `delete`, `search`, `is_empty`, `__len__`, and `__str__` operations.
-    *   `doubly_linked_list.py`: Doubly Linked List with `append`, `prepend`, `insert_at_position`, `delete`, `search`, `is_empty`, `__len__`, `__str__`, and `print_reverse` operations.
-    *   `singly_linked_list.py`: Singly Linked List with `append`, `prepend`, `insert_at_position`, `delete`, `search`, `is_empty`, `__len__`, and `__str__` operations.
+    *   `singly_linked_list.py`: Standard Singly Linked List.
+    *   `doubly_linked_list.py`: Standard Doubly Linked List.
+    *   `circular_singly_linked_list.py`: Circular Singly Linked List.
+    *   `circular_doubly_linked_list.py`: Circular Doubly Linked List.
+*   **`queue`**
+    *   `queue.py`: Queue implementation using a linked list.
+*   **`stack`**
+    *   `stack.py`: Stack implementation using a linked list.
 *   **`trees`**
-    *   `avl_tree.py`: AVL Tree with `insert`, `delete`, and `in_order_traversal` operations.
-    *   `binary_search_tree.py`: Binary Search Tree (BST) with `insert`, `search`, `delete`, and `in_order_traversal` operations.
-    *   `binary_tree.py`: Generic Binary Tree with `pre_order_traversal`, `in_order_traversal`, `post_order_traversal`, and `level_order_traversal` operations.
+    *   `binary_tree.py`: Generic Binary Tree with traversal methods.
+    *   `binary_search_tree.py`: Binary Search Tree (BST).
+    *   `avl_tree.py`: Self-balancing AVL Tree.
+    *   `red_black_tree.py`: Self-balancing Red-Black Tree.
+    *   `splay_tree.py`: Self-balancing Splay Tree.
+    *   `tree_node.py`: Generic tree node class.
+    *   And modules for tree-related operations, properties, traversals, utilities, exceptions, serialization, and visualization.
 
 ### Algorithms
 
 *   **`algorithmic_paradigms`**
-    *   `kmp_search.py`: Knuth-Morris-Pratt (KMP) string searching algorithm.
-    *   `knapsack_problem.py`: 0/1 Knapsack problem solver using dynamic programming.
-    *   `longest_common_subsequence.py`: Longest Common Subsequence (LCS) length and reconstruction using dynamic programming.
-    *   `n_queens.py`: N-Queens Problem solver using backtracking.
-    *   `sudoku_solver.py`: Sudoku Solver using backtracking.
+    *   `kmp_search.py`: Knuth-Morris-Pratt (KMP) string searching.
+    *   `knapsack_problem.py`: 0/1 Knapsack problem (Dynamic Programming).
+    *   `longest_common_subsequence.py`: Longest Common Subsequence (LCS) (Dynamic Programming).
+    *   `n_queens.py`: N-Queens problem solver (Backtracking).
+    *   `sudoku_solver.py`: Sudoku solver (Backtracking).
 *   **`graphs`**
-    *   `bellman_ford.py`: Bellman-Ford algorithm for shortest paths and negative cycle detection.
+    *   `graph_representation.py`: Basic graph representation with BFS, DFS, Dijkstra's, and Prim's.
+    *   `bellman_ford.py`: Bellman-Ford algorithm for shortest paths with negative weights.
+    *   `dijkstra.py`: Dijkstra's algorithm for single-source shortest paths.
     *   `floyd_warshall.py`: Floyd-Warshall algorithm for all-pairs shortest paths.
-    *   `graph_representation.py`: Graph Representation (Adjacency List) with BFS, DFS, Dijkstra's, and Prim's algorithms.
+    *   `johnson.py`: Johnson's algorithm for all-pairs shortest paths in sparse graphs.
     *   `kruskal_algorithm.py`: Kruskal's algorithm for Minimum Spanning Tree (MST).
-    *   `topological_sort.py`: Topological Sort using Kahn's algorithm.
+    *   `prim.py`: Prim's algorithm for Minimum Spanning Tree (MST).
+    *   `topological_sort.py`: Topological Sort for Directed Acyclic Graphs (DAG).
+    *   `cycle_detection.py`: Detects cycles in directed and undirected graphs.
+    *   `articulation_points.py`: Finds articulation points (cut vertices).
+    *   `bridges.py`: Finds bridges in a graph.
+    *   `biconnected_components.py`: Finds biconnected components.
+    *   `kosaraju.py`: Kosaraju's algorithm for Strongly Connected Components (SCCs).
+    *   `tarjan.py`: Tarjan's algorithm for Strongly Connected Components (SCCs).
+    *   `network_flow.py`: Edmonds-Karp algorithm for maximum flow.
+    *   `graph_matching.py`: Hopcroft-Karp algorithm for maximum bipartite matching.
+    *   `graph_coloring.py`: Greedy algorithm for vertex coloring.
+    *   `graph_partitioning.py`: Kernighan-Lin algorithm for graph partitioning.
+    *   `graph_clustering.py`: Girvan-Newman algorithm for community detection.
+    *   And modules for graph analysis, search, statistics, utilities, and more.
 *   **`searching`**
-    *   `searching_algorithms.py`: Linear Search, Binary Search (iterative and recursive).
+    *   `linear_search.py`: Linear Search.
+    *   `binary_search.py`: Binary Search (iterative and recursive).
 *   **`sorting`**
     *   `bubble_sort.py`: Bubble Sort.
-    *   `heap_sort.py`: Heap Sort.
+    *   `selection_sort.py`: Selection Sort.
     *   `insertion_sort.py`: Insertion Sort.
     *   `merge_sort.py`: Merge Sort.
     *   `quick_sort.py`: Quick Sort.
-    *   `selection_sort.py`: Selection Sort.
+    *   `heap_sort.py`: Heap Sort.
 
 ## Contributing
 
